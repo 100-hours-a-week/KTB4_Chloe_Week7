@@ -1,0 +1,207 @@
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #F4F5F7;
+  color: #000000;
+  min-height: 100vh;
+}
+
+/* =============================================
+   HEADER
+============================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #F4F5F7;
+  border-bottom: 1.5px solid #c8c8c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  position: relative;
+}
+
+.site-title {
+  font-family: 'Sandoll GogoRound', 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #000000;
+  text-align: center;
+}
+
+.header-profile {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c8c8c8;
+  display: block;
+  object-fit: cover;
+}
+
+/* 이미지 src 없을 때 회색 원으로 표시 */
+.profile-icon[src=""] {
+  background-color: #c8c8c8;
+}
+
+/* =============================================
+   MAIN LAYOUT
+============================================= */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 80px;
+}
+
+/* =============================================
+   TOP AREA (인사글 + 버튼)
+============================================= */
+.top-area {
+  width: 100%;
+  max-width: 592px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.greeting {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 130%;
+  letter-spacing: 0;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.btn-write {
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: #ACA0EB;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  display: inline-block; /* <a> 태그에 padding이 적용되려면 필요 */
+}
+
+.btn-write:hover {
+  background-color: #7F6AEE;
+}
+
+/* 인사글 '게시판' bold */
+.greeting-bold {
+  font-weight: 700;
+}
+
+/* =============================================
+   POST LIST
+============================================= */
+.post-list {
+  width: 100%;
+  max-width: 592px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* =============================================
+   POST CARD
+============================================= */
+.post-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 3px 4px 4px 0px rgba(204, 204, 204, 0.25);
+}
+
+.post-title {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 130%;
+  letter-spacing: 0;
+  color: #000000;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meta-stats {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  color: #555555;
+}
+
+.meta-date {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  color: #555555;
+  text-align: right;
+}
+
+.post-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.16);
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 130%;
+  color: #000000;
+}

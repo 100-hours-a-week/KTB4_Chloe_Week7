@@ -1,0 +1,465 @@
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #F4F5F7;
+  color: #000000;
+  min-height: 100vh;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* =============================================
+   HEADER
+============================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #F4F5F7;
+  border-bottom: 1.5px solid #c8c8c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+}
+
+.btn-back {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 140px - 40px);
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.btn-back:hover {
+  background-color: #e8e8e8;
+}
+
+.site-title {
+  justify-self: center;
+  font-family: 'Sandoll GogoRound', 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #000000;
+}
+
+.header-profile {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c8c8c8;
+  display: block;
+  object-fit: cover;
+}
+
+/* =============================================
+   MAIN LAYOUT
+============================================= */
+.main-content {
+  display: flex;
+  justify-content: center;
+  padding: 40px 24px 80px;
+}
+
+.post-detail {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =============================================
+   POST HEADER
+============================================= */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.post-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-title {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 130%;
+  color: #000000;
+}
+
+.post-author-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 130%;
+  color: #000000;
+}
+
+.post-date {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  color: #777777;
+}
+
+.post-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.btn-action {
+  padding: 6px 14px;
+  border: 1px solid #c8c8c8;
+  border-radius: 6px;
+  background: transparent;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.btn-action:hover {
+  background-color: #eeeeee;
+}
+
+/* =============================================
+   DIVIDER
+============================================= */
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.16);
+}
+
+/* =============================================
+   POST IMAGE
+============================================= */
+.post-image-wrap {
+  width: 100%;
+}
+
+.post-image-placeholder {
+  width: 100%;
+  height: 220px;
+  background-color: #d0d0d0;
+  border-radius: 8px;
+}
+
+/* =============================================
+   POST BODY
+============================================= */
+.post-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post-body p {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 141%;
+  letter-spacing: 0;
+  color: #000000;
+}
+
+/* =============================================
+   POST STATS
+============================================= */
+.post-stats {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.stat-btn,
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 96px;
+  height: 72px;
+  border-radius: 10px;
+  background-color: #D9D9D9;
+  border: none;
+  cursor: default;
+}
+
+.stat-btn {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.stat-btn.liked {
+  background-color: #ACA0EB;
+}
+
+.stat-num {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  color: #000000;
+}
+
+.stat-label {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  color: #000000;
+}
+
+/* =============================================
+   COMMENT INPUT
+============================================= */
+.comment-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background-color: #ffffff;
+  border: 1px solid #c8c8c8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.comment-textarea {
+  width: 100%;
+  height: 110px;
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+  font-family: 'Pretendard', sans-serif;
+  font-size: 15px;
+  line-height: 141%;
+  color: #000000;
+  background-color: #ffffff;
+  resize: none;
+  outline: none;
+}
+
+.comment-textarea::placeholder {
+  color: #b0b0b0;
+}
+
+.comment-submit-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 12px;
+  background-color: #ffffff;
+}
+
+.btn-comment-submit {
+  padding: 10px 20px;
+  background-color: #ACA0EB;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: not-allowed;
+  transition: background-color 0.2s;
+}
+
+.btn-comment-submit.active {
+  background-color: #7F6AEE;
+  cursor: pointer;
+}
+
+.btn-comment-submit.active:hover {
+  background-color: #6a55d4;
+}
+
+/* =============================================
+   COMMENT LIST
+============================================= */
+.comment-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-author-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-author {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 130%;
+  color: #000000;
+}
+
+.comment-date {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  color: #777777;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.comment-body {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 141%;
+  color: #000000;
+  padding-left: 46px;
+}
+
+/* =============================================
+   MODAL
+============================================= */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 36px 32px 28px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-title {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  color: #000000;
+}
+
+.modal-desc {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 130%;
+  color: #444444;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-modal-cancel,
+.btn-modal-confirm {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn-modal-cancel {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.btn-modal-cancel:hover {
+  opacity: 0.85;
+}
+
+.btn-modal-confirm {
+  background-color: #ACA0EB;
+  color: #ffffff;
+}
+
+.btn-modal-confirm:hover {
+  background-color: #7F6AEE;
+}

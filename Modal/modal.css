@@ -1,0 +1,98 @@
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* =============================================
+   MODAL OVERLAY
+============================================= */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+/* =============================================
+   MODAL BOX
+============================================= */
+.modal {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 36px 32px 28px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-title {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  color: #000000;
+}
+
+.modal-desc {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 130%;
+  color: #444444;
+}
+
+/* =============================================
+   MODAL BUTTONS
+============================================= */
+.modal-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-modal-cancel,
+.btn-modal-confirm {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn-modal-cancel {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.btn-modal-cancel:hover {
+  opacity: 0.85;
+}
+
+.btn-modal-confirm {
+  background-color: #ACA0EB;
+  color: #ffffff;
+}
+
+.btn-modal-confirm:hover {
+  background-color: #7F6AEE;
+}
