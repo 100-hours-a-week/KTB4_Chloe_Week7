@@ -10,10 +10,45 @@ const helperTextNickname = document.getElementById('nicknameHelper');
 
 const signupButton = document.getElementById('submitBtn');
 
+const profilePreview = document.getElementById('profilePreview');
+const profileInput = document.getElementById('profileInput');
+const profilePlus = document.getElementById('profilePlus');
+const helperTextProfile = document.getElementById('profileHelper');
+
 let isValidEmail = false;
 let isValidPassword = false;
 let isValidConfirmPassword = false;
 let isValidNickname = false;
+let isValidProfile = false;
+
+//프로필 사진 
+profileInput.addEventListener('change', function () {
+  const file = profileInput.files[0];
+
+  if (!file) {
+    helperTextProfile.classList.add('error');
+    helperTextProfile.textContent = '프로필 사진을 추가해주세요.';
+    profilePreview.src = '';
+    profilePreview.style.display = 'none';
+    profilePlus.style.display = 'block';
+    isValidProfile = false;
+    return;
+  }
+
+  const imageSrc = URL.createObjectURL(file);
+  
+  profilePreview.src = imageSrc;
+  profilePreview.style.display = 'block';
+  profilePlus.style.display = 'none';
+
+  helperTextProfile.classList.remove('error');
+  helperTextProfile.textContent = '';
+
+  isValidProfile = true;
+
+});
+
+
 
 //유효성 검사
 emailInput.addEventListener('blur', function() {
@@ -110,7 +145,7 @@ nicknameInput.addEventListener('blur', function() {
 });
 
 function activeSignupButton() {
-  if (isValidEmail && isValidPassword && isValidConfirmPassword && isValidNickname) {
+  if (isValidEmail && isValidPassword && isValidConfirmPassword && isValidNickname && isValidProfile) {
     signupButton.classList.add('active');
   } else {
     signupButton.classList.remove('active');

@@ -104,35 +104,29 @@ body {
 }
 
 .profile-upload {
-  width: 100%;
-  height: 130px;
-  background-color: #F4F5F7;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-top: 8px;
-  position: relative;
-  overflow: hidden;
-}
-
-.profile-plus {
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 150px;
   background-color: #d0d0d0;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  cursor: pointer;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+.profile-plus {
+  font-size: 40px;
   color: #888;
-  user-select: none;
+  width: auto;
+  height: auto;
+  background: none;
 }
 
 .profile-preview {
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
 }
