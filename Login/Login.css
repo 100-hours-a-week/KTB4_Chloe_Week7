@@ -139,6 +139,7 @@ body {
 .helper-text.error {
   color: #e03c3c;
   font-weight: 600;
+  display: block;
 }
 
 /* =============================================

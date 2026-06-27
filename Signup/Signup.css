@@ -195,6 +195,13 @@ body {
   color: #e05c5c;
   min-height: 16px;
   margin-top: 4px;
+  display: none;
+}
+
+.helper-text.error {
+  color: #e03c3c;
+  font-weight: 600;
+  display: block;
 }
 
 /* =============================================

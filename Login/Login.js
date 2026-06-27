@@ -16,11 +16,12 @@ emailInput.addEventListener('input', function() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(email)) {
-    helperTextEmail.style.display = "block";
+    helperTextEmail.classList.add('error');
     helperTextEmail.textContent = '유효한 이메일 주소를 입력해주세요.';
     isValidEmail = false;
   } else {
-    helperTextEmail.style.display = "none";
+    helperTextEmail.classList.remove('error');
+    helperTextEmail.textContent = '';
     isValidEmail = true;
   }
   activeLoginButton();
@@ -31,11 +32,12 @@ passwordInput.addEventListener('input', function() {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;/'])[A-Za-z\d!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;/']{8,20}$/;
 
   if (!passwordRegex.test(password)) {
-    helperTextPassword.style.display = "block";
+    helperTextPassword.classList.add('error');
     helperTextPassword.textContent = '비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.';
     isValidPassword = false;
  } else {
-    helperTextPassword.style.display = "none";
+    helperTextPassword.classList.remove('error');
+    helperTextPassword.textContent = '';
     isValidPassword = true;
   }
   activeLoginButton();
