@@ -85,6 +85,7 @@ body.modal-open {
 }
 
 .dropdown-menu.active {
+  background-color: #D3D3D3;
   display: flex;
 }
 
@@ -259,6 +260,13 @@ body.modal-open {
   color: #e05c5c;
   min-height: 16px;
   margin-top: -4px;
+  display: none;
+}
+
+.helper-text.error {
+  color: #e03c3c;
+  font-weight: 600;
+  display: block;
 }
 
 /* =============================================
@@ -327,81 +335,4 @@ body.modal-open {
   transform: translateX(-50%) translateY(0);
 }
 
-/* =============================================
-   MODAL (modal.css 공유)
-============================================= */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
-}
 
-.modal-overlay.active {
-  display: flex;
-}
-
-.modal {
-  background-color: #ffffff;
-  border-radius: 16px;
-  padding: 36px 32px 28px;
-  width: 340px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.modal-title {
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 130%;
-  color: #000000;
-}
-
-.modal-desc {
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 130%;
-  color: #444444;
-}
-
-.modal-btns {
-  display: flex;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.btn-modal-cancel,
-.btn-modal-confirm {
-  flex: 1;
-  padding: 14px;
-  border: none;
-  border-radius: 10px;
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.btn-modal-cancel {
-  background-color: #1a1a1a;
-  color: #ffffff;
-}
-
-.btn-modal-cancel:hover {
-  opacity: 0.85;
-}
-
-.btn-modal-confirm {
-  background-color: #ACA0EB;
-  color: #ffffff;
-}
-
-.btn-modal-confirm:hover {
-  background-color: #7F6AEE;
-}
