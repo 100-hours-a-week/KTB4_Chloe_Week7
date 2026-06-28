@@ -10,22 +10,33 @@
 body {
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
 }
+body.modal-open {
+  overflow: hidden;
+}
 
 /* =============================================
    MODAL OVERLAY
 ============================================= */
-.modal-overlay {
+.withdraw_modal,
+.comment_delete_modal,
+.post_delete_modal {
   display: none;
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 200;
-  align-items: center;
-  justify-content: center;
 }
 
-.modal-overlay.active {
+.withdraw_modal.active,
+.comment_delete_modal.active,
+.post_delete_modal.active {
+  display: block;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
 }
 
 /* =============================================

@@ -46,7 +46,9 @@ passwordInput.addEventListener('input', function() {
 function activeLoginButton() {
   if (isValidEmail && isValidPassword) {
     loginButton.classList.add('active');
+    loginButton.disabled = false;
   } else {
     loginButton.classList.remove('active');
+    loginButton.disabled = true;
   }
 }

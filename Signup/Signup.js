@@ -147,7 +147,9 @@ nicknameInput.addEventListener('blur', function() {
 function activeSignupButton() {
   if (isValidEmail && isValidPassword && isValidConfirmPassword && isValidNickname && isValidProfile) {
     signupButton.classList.add('active');
+    signupButton.disabled = false;
   } else {
     signupButton.classList.remove('active');
+    signupButton.disabled = true;
   }
 }

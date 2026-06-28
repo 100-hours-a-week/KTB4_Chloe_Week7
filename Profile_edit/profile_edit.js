@@ -9,9 +9,10 @@ const helperTextNickname = document.getElementById('nicknameHelper');
 const helperTextProfile = document.getElementById('profileHelper');
 
 const submitBtn = document.getElementById('submitBtn');
-const withdrawBtn = document.getElementById('withdrawBtn');
 
-const modaloverlay = document.querySelector('.modal-overlay');
+
+const withdrawmodal = document.querySelector('.withdraw_modal');
+const withdrawBtn = document.getElementById('withdrawBtn');
 const withdrawCancelBtn = document.getElementById('withdrawCancel');
 
 let isValidNickname = false;
@@ -72,9 +73,9 @@ submitBtn.addEventListener('click', function() {
 
 //회원 탈퇴 -> 모달창 띄우기
 withdrawBtn.addEventListener('click', function() {
-  modaloverlay.classList.add('active');
+  withdrawmodal.classList.add('active');
 });
 
 withdrawCancelBtn.addEventListener('click', function() {
-  modaloverlay.classList.remove('active');
+  withdrawmodal.classList.remove('active');
 });

@@ -52,8 +52,10 @@ postImageInput.addEventListener('change', () => {
 function activeWriteCompleteButton() {
   if (isValidTitle && isValidContent) {
     writeCompleteBtn.classList.add('active');
+    writeCompleteBtn.disabled = false;
   } else {
     writeCompleteBtn.classList.remove('active');
+    writeCompleteBtn.disabled = true;
   }
 }
 

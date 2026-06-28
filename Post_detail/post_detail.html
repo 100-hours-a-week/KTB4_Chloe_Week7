@@ -6,17 +6,25 @@
   <title>아무 말 대잔치 - 게시글 상세</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="post_detail.css" />
-  <link rel="stylesheet" href="modal.css" />
+  <link rel="stylesheet" href="../Modal/modal.css" />
 </head>
 <body>
 
   <!-- HEADER -->
   <header class="site-header">
-    <button class="btn-back" onclick="history.back()">&#8249;</button>
+    <button class="btn-back" onclick="window.location.href='../Board/board.html'">&#8249;</button>
     <h1 class="site-title">아무 말 대잔치</h1>
-    <div class="header-profile">
-      <img class="profile-icon" src="" alt="프로필" />
-    </div>
+    <div class="header-profile-wrap">
+      <button class="btn-profile-header" id="profileMenuBtn">
+        <img class="profile-icon" src="" alt="프로필" id="headerProfileIcon" />
+      </button>
+      <!-- 드롭다운 메뉴 -->
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="../Profile_edit/profile_edit.html" class="dropdown-item">회원정보수정</a>
+        <a href="../Password_edit/password_edit.html" class="dropdown-item">비밀번호수정</a>
+        <button class="dropdown-item" id="logoutBtn">로그아웃</button>
+      </div>
+    </div> 
   </header>
 
   <!-- MAIN -->
@@ -34,8 +42,8 @@
           </div>
         </div>
         <div class="post-actions">
-          <button class="btn-action">수정</button>
-          <button class="btn-action btn-delete-post">삭제</button>
+          <button class="btn-action" onclick="window.location.href='../Post_edit/post_edit.html'">수정</button>
+          <button class="btn-action btn-delete-post" id="postDeleteBtn">삭제</button>
         </div>
       </div>
 
@@ -96,8 +104,8 @@
               <span class="comment-date">2021-01-01 00:00:00</span>
             </div>
             <div class="comment-actions">
-              <button class="btn-action btn-edit-comment">수정</button>
-              <button class="btn-action btn-delete-comment">삭제</button>
+              <button class="btn-action btn-edit-comment" >수정</button>
+              <button class="btn-action btn-delete-comment" >삭제</button>
             </div>
           </div>
           <p class="comment-body">댓글 내용</p>
@@ -110,8 +118,8 @@
               <span class="comment-date">2021-01-01 00:00:00</span>
             </div>
             <div class="comment-actions">
-              <button class="btn-action btn-edit-comment">수정</button>
-              <button class="btn-action btn-delete-comment">삭제</button>
+              <button class="btn-action btn-edit-comment" id="commentEditBtn">수정</button>
+              <button class="btn-action btn-delete-comment" id="commentDeleteBtn">삭제</button>
             </div>
           </div>
           <p class="comment-body">댓글 내용</p>
@@ -136,29 +144,36 @@
   </main>
 
   <!-- 게시글 삭제 모달 (modal.css 공유) -->
-  <div class="modal-overlay" id="postDeleteOverlay">
+  <div class="post_delete_modal" id="postDelete">
+  <div class="modal-overlay">
     <div class="modal">
       <h3 class="modal-title">게시글을 삭제하시겠습니까?</h3>
-      <p class="modal-desc">삭제한 내용은 복구 할 수 없습니다.</p>
+      <p class="modal-desc">삭제한 내용은 복구할 수 없습니다.</p>
       <div class="modal-btns">
         <button class="btn-modal-cancel" id="postDeleteCancel">취소</button>
         <button class="btn-modal-confirm" id="postDeleteConfirm">확인</button>
       </div>
     </div>
   </div>
+</div>
 
   <!-- 댓글 삭제 모달 (modal.css 공유) -->
-  <div class="modal-overlay" id="commentDeleteOverlay">
+  <div class="comment_delete_modal" id="commentDelete">
+  <div class="modal-overlay">
     <div class="modal">
       <h3 class="modal-title">댓글을 삭제하시겠습니까?</h3>
-      <p class="modal-desc">삭제한 내용은 복구 할 수 없습니다.</p>
+      <p class="modal-desc">삭제한 내용은 복구할 수 없습니다.</p>
       <div class="modal-btns">
         <button class="btn-modal-cancel" id="commentDeleteCancel">취소</button>
         <button class="btn-modal-confirm" id="commentDeleteConfirm">확인</button>
       </div>
     </div>
   </div>
+</div>
 
+
+
+  <script src="post_detail.js"></script>
   
 </body>
 </html>
