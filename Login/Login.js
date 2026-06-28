@@ -52,3 +52,34 @@ function activeLoginButton() {
     loginButton.disabled = true;
   }
 }
+
+async function login(user) {
+  console.log(JSON.stringify(user));
+  const response = await fetch('http://localhost:8080/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+
+  if (!response.ok) {
+    throw new Error('로그인 실패');
+  }
+
+  return response.json();
+}
+
+loginButton.addEventListener('click',async function(){
+  const user = {
+    email: emailInput.value,
+    password: passwordInput.value
+  };
+   try {
+    const data = await login(user);
+    console.log(data);
+    } catch (error) {
+    console.error(error);
+  }
+});
+
