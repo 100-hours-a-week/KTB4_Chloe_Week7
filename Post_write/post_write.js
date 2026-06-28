@@ -11,30 +11,17 @@ const fileNameDisplay = document.getElementById('fileName');
 
 const writeCompleteBtn = document.getElementById('submitBtn');
 
-let isValidTitle = false;
-let isValidContent = false;
-
 profileMenuBtn.addEventListener('click', function() {
   dropdownMenu.classList.toggle('active');
 });
 
 
 titleInput.addEventListener('input', () => {
-  if(titleInput.value){
-    isValidTitle = true;
-  } else {
-    isValidTitle = false;
-  }
   titleCount.textContent = `${titleInput.value.length}/26`;
   activeWriteCompleteButton();
 });
 
 postContentInput.addEventListener('input', () => {
-    if(postContentInput.value){
-        isValidContent = true;
-    } else {
-        isValidContent = false;
-    }
     activeWriteCompleteButton();
 });
 
@@ -50,6 +37,10 @@ postImageInput.addEventListener('change', () => {
 });
 
 function activeWriteCompleteButton() {
+
+  const isValidTitle = titleInput.value !== '';
+  const isValidContent = postContentInput.value !== '';
+  
   if (isValidTitle && isValidContent) {
     writeCompleteBtn.classList.add('active');
     writeCompleteBtn.disabled = false;
