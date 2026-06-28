@@ -153,3 +153,38 @@ function activeSignupButton() {
     signupButton.disabled = true;
   }
 }
+
+async function signUp(signUp_user) {
+  console.log(signUp_user);
+  const response = await fetch('http://localhost:8080/users', {
+    method: 'POST',
+    body: signUp_user
+  });
+
+  if (!(response.status === 201)) {
+    throw new Error('회원가입 실패');
+  }
+
+  return response.json();
+}
+
+signupButton.addEventListener('click', async function(){
+
+  const formData = new FormData();
+
+  formData.append("email",emailInput.value);
+  formData.append("password",passwordInput.value);
+  formData.append("nickname",nicknameInput.value);
+  formData.append("profile_image",profileInput.files[0]);
+
+  try {
+    const response = await signUp(formData);
+
+    console.log(response);
+    //로그인 성공하면 백에서 보내온 게시글 목록 링크로 바로 이동
+    window.location.href = response.data.link;
+
+  } catch (error) {
+    console.error(error);
+  }
+});

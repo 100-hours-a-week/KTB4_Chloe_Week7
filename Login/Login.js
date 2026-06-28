@@ -53,17 +53,17 @@ function activeLoginButton() {
   }
 }
 
-async function login(user) {
-  console.log(JSON.stringify(user));
+async function login(login_user) {
+  console.log(JSON.stringify(login_user));
   const response = await fetch('http://localhost:8080/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify(login_user),
   });
 
-  if (!response.ok) {
+  if (!(response.status === 200)) {
     throw new Error('로그인 실패');
   }
 
@@ -71,13 +71,13 @@ async function login(user) {
 }
 
 loginButton.addEventListener('click', async function () {
-  const user = {
+  const login_user = {
     email: emailInput.value,
     password: passwordInput.value
   };
 
   try {
-    const response = await login(user);
+    const response = await login(login_user);
 
     console.log(response);
     //로그인 성공하면 백에서 보내온 게시글 목록 링크로 바로 이동
@@ -87,4 +87,6 @@ loginButton.addEventListener('click', async function () {
     console.error(error);
   }
 });
+
+
 
