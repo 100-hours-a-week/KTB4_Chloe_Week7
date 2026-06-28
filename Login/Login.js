@@ -70,15 +70,20 @@ async function login(user) {
   return response.json();
 }
 
-loginButton.addEventListener('click',async function(){
+loginButton.addEventListener('click', async function () {
   const user = {
     email: emailInput.value,
     password: passwordInput.value
   };
-   try {
-    const data = await login(user);
-    console.log(data);
-    } catch (error) {
+
+  try {
+    const response = await login(user);
+
+    console.log(response);
+    //로그인 성공하면 백에서 보내온 게시글 목록 링크로 바로 이동
+    window.location.href = response.data.link;
+
+  } catch (error) {
     console.error(error);
   }
 });
