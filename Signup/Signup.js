@@ -45,6 +45,7 @@ profileInput.addEventListener('change', function () {
   helperTextProfile.textContent = '';
 
   isValidProfile = true;
+  activeSignupButton();
 
 });
 
@@ -128,7 +129,7 @@ confirmPasswordInput.addEventListener('blur', function() {
 nicknameInput.addEventListener('blur', function() {
   const nickname = nicknameInput.value;
 
-  if (nickname.length > 11) {
+  if (nickname.length >= 11) {
     helperTextNickname.classList.add('error');
     helperTextNickname.textContent = '닉네임은 최대 10자 까지 작성 가능합니다.';
     isValidNickname = false;
@@ -136,11 +137,16 @@ nicknameInput.addEventListener('blur', function() {
     helperTextNickname.classList.add("error");
     helperTextNickname.textContent = "띄어쓰기를 없애주세요.";
     isValidNickname = false;
-    } else {
+  } else if(!nickname){
+    helperTextNickname.classList.add("error");
+    helperTextNickname.textContent = "낙네임을 입력해주세요";
+    isValidNickname = false;
+  }
+    else {
     helperTextNickname.classList.remove("error");
     helperTextNickname.textContent = "";
     isValidNickname = true;
-    }
+  }
   activeSignupButton();
 });
 
@@ -161,7 +167,26 @@ async function signUp(signUp_user) {
     body: signUp_user
   });
 
-  if (!(response.status === 201)) {
+  const result = await response.json();
+  
+  if (response.status === 409) {
+    if (result.message === '중복된 이메일이 존재합니다.') {
+      helperTextEmail.classList.add('error');
+      helperTextEmail.textContent = "중복된 이메일 입니다.";
+      isValidEmail = false;
+    }
+
+    if (result.message === '중복된 닉네임이 존재합니다.') {
+      helperTextNickname.classList.add('error');
+      helperTextNickname.textContent = "중복된 닉네임 입니다.";
+      isValidNickname = false;
+    }
+
+    activeSignupButton();
+    return null;
+  }
+
+  if (response.status !== 201) {
     throw new Error('회원가입 실패');
   }
 
@@ -179,11 +204,11 @@ signupButton.addEventListener('click', async function(){
 
   try {
     const response = await signUp(formData);
-
     console.log(response);
-    //로그인 성공하면 백에서 보내온 게시글 목록 링크로 바로 이동
-    window.location.href = response.data.link;
 
+    if (response === null) return;
+
+    window.location.href = response.data.link;
   } catch (error) {
     console.error(error);
   }
