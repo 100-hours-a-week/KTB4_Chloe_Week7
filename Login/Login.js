@@ -78,8 +78,8 @@ loginButton.addEventListener('click', async function () {
 
   try {
     const response = await login(login_user);
+    sessionStorage.setItem('userId', response.data.user_id);
 
-    console.log(response);
     //로그인 성공하면 백에서 보내온 게시글 목록 링크로 바로 이동
     window.location.href = response.data.link;
 

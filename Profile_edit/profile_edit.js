@@ -1,6 +1,9 @@
 const profileMenuBtn = document.getElementById('profileMenuBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
+const email = document.getElementById('email');
+const headerProfileIcon = document.getElementById('headerProfileIcon');
+
 const profilePreview = document.getElementById('profileImgPreview');
 const profileInput = document.getElementById('profileImgInput');
 
@@ -14,6 +17,9 @@ const submitBtn = document.getElementById('submitBtn');
 const withdrawmodal = document.querySelector('.withdraw_modal');
 const withdrawBtn = document.getElementById('withdrawBtn');
 const withdrawCancelBtn = document.getElementById('withdrawCancel');
+const withdrawConfirmBtn = document.getElementById('withdrawConfirm');
+
+const userId = sessionStorage.getItem('user_id');
 
 let isValidNickname = false;
 let isValidProfile = false;
@@ -78,4 +84,63 @@ withdrawBtn.addEventListener('click', function() {
 
 withdrawCancelBtn.addEventListener('click', function() {
   withdrawmodal.classList.remove('active');
+});
+
+//회원 정보 조회 API
+async function getUser() {
+  const userId = sessionStorage.getItem('userId');
+
+  const response = await fetch(`http://localhost:8080/users/${userId}`, {
+    method: 'GET'
+  });
+
+  if (!response.ok) {
+    throw new Error('회원 정보 조회 실패');
+  }
+
+  return response.json();
+}
+
+document.addEventListener('DOMContentLoaded', async function () {
+  const result = await getUser();
+
+  email.textContent = result.data.email;
+  nicknameInput.value = result.data.nickname;
+
+  if (result.data.profile_image) {
+    profilePreview.src = result.data.profile_image;
+    profilePreview.style.display = 'block';
+  } else {
+    profilePreview.src = '';
+    profilePreview.style.display = 'none';
+  }
+
+  if (result.data.profile_image) {
+    headerProfileIcon.src = result.data.profile_image;
+  } else {
+    headerProfileIcon.src = '';
+  }
+});
+
+//회원 탈퇴 API 
+async function withdrawUser(){
+  const userId = sessionStorage.getItem('userId');
+  const response = await fetch(`http://localhost:8080/users/${userId}`, {
+      method: 'DELETE'
+    });
+
+  if (!response.ok) {
+    throw new Error('회원 탈퇴 실패');
+  }
+
+  return response.json();
+}
+
+withdrawConfirmBtn.addEventListener('click',async function(){
+  try {
+     const response = await withdrawUser();
+      window.location.href = response.data.link;
+    } catch (error) {
+      console.error(error);
+    }
 });

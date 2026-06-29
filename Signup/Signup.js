@@ -161,7 +161,6 @@ function activeSignupButton() {
 }
 
 async function signUp(signUp_user) {
-  console.log(signUp_user);
   const response = await fetch('http://localhost:8080/users', {
     method: 'POST',
     body: signUp_user
