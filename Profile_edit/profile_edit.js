@@ -19,7 +19,7 @@ const withdrawBtn = document.getElementById('withdrawBtn');
 const withdrawCancelBtn = document.getElementById('withdrawCancel');
 const withdrawConfirmBtn = document.getElementById('withdrawConfirm');
 
-const userId = sessionStorage.getItem('user_id');
+
 
 let isValidNickname = false;
 let isValidProfile = false;
@@ -55,27 +55,7 @@ profileInput.addEventListener('change', function () {
 
 
 
-submitBtn.addEventListener('click', function() {
-  const nickname = nicknameInput.value;
 
-  if (nickname.length > 11) {
-    helperTextNickname.classList.add('error');
-    helperTextNickname.textContent = '닉네임은 최대 10자 까지 작성 가능합니다.';
-    isValidNickname = false;
-  } else if (/\s/.test(nickname)) {
-    helperTextNickname.classList.add("error");
-    helperTextNickname.textContent = "띄어쓰기를 없애주세요.";
-    isValidNickname = false;
-  } else if (!nickname) {
-    helperTextNickname.classList.add("error");
-    helperTextNickname.textContent = "닉네임을 입력해주세요.";
-    isValidNickname = false;
-  } else {
-    helperTextNickname.classList.remove("error");
-    helperTextNickname.textContent = "";
-    isValidNickname = true;
-    }
-});
 
 //회원 탈퇴 -> 모달창 띄우기
 withdrawBtn.addEventListener('click', function() {
@@ -88,8 +68,7 @@ withdrawCancelBtn.addEventListener('click', function() {
 
 //회원 정보 조회 API
 async function getUser() {
-  const userId = sessionStorage.getItem('userId');
-
+ const userId = sessionStorage.getItem('userId');
   const response = await fetch(`http://localhost:8080/users/${userId}`, {
     method: 'GET'
   });
@@ -100,25 +79,21 @@ async function getUser() {
 
   return response.json();
 }
-
+//회원 정보 조회
 document.addEventListener('DOMContentLoaded', async function () {
   const result = await getUser();
 
   email.textContent = result.data.email;
   nicknameInput.value = result.data.nickname;
 
-  if (result.data.profile_image) {
-    profilePreview.src = result.data.profile_image;
+  if (result.data.profileImage) {
+    profilePreview.src = `http://localhost:8080${result.data.profileImage}`;
+    headerProfileIcon.src = `http://localhost:8080${result.data.profileImage}`;
     profilePreview.style.display = 'block';
   } else {
     profilePreview.src = '';
-    profilePreview.style.display = 'none';
-  }
-
-  if (result.data.profile_image) {
-    headerProfileIcon.src = result.data.profile_image;
-  } else {
     headerProfileIcon.src = '';
+    profilePreview.style.display = 'none';
   }
 });
 
@@ -135,7 +110,7 @@ async function withdrawUser(){
 
   return response.json();
 }
-
+//회원 탈퇴 
 withdrawConfirmBtn.addEventListener('click',async function(){
   try {
      const response = await withdrawUser();
@@ -144,3 +119,87 @@ withdrawConfirmBtn.addEventListener('click',async function(){
       console.error(error);
     }
 });
+
+//회원 정보 수정 API
+async function updateUser(update_User){
+  const userId = sessionStorage.getItem('userId');
+  const response = await fetch(`http://localhost:8080/users/${userId}`, {
+      method: 'PATCH',
+      body : update_User
+    });
+
+    const result = await response.json();
+
+    if (response.status === 409) {
+      helperTextNickname.classList.add('error');
+      helperTextNickname.textContent = "중복된 닉네임 입니다.";
+      isValidNickname = false;
+
+      return null;
+  }
+
+  if (response.status !== 201) {
+    throw new Error('회원가입 실패');
+  }
+  return result;
+
+}
+
+submitBtn.addEventListener('click', async function() {
+
+  const formData = new FormData();
+  const nickname = nicknameInput.value;
+
+  if (nickname.length > 11) {
+    helperTextNickname.classList.add('error');
+    helperTextNickname.textContent = '닉네임은 최대 10자 까지 작성 가능합니다.';
+    isValidNickname = false;
+  } else if (/\s/.test(nickname)) {
+    helperTextNickname.classList.add("error");
+    helperTextNickname.textContent = "띄어쓰기를 없애주세요.";
+    isValidNickname = false;
+  } else if (!nickname) {
+    helperTextNickname.classList.add("error");
+    helperTextNickname.textContent = "닉네임을 입력해주세요.";
+    isValidNickname = false;
+  } else if (!isValidProfile){
+    helperTextProfile.classList.add('error');
+    helperTextProfile.textContent = '프로필 사진을 추가해주세요.';
+    profilePreview.src = '';
+    profilePreview.style.display = 'none';
+    isValidProfile = false;
+  } else {
+    helperTextNickname.classList.remove("error");
+    helperTextNickname.textContent = "";
+    isValidNickname = true;
+  }
+
+  formData.append("nickname",nicknameInput.value);
+  formData.append("profileImage",profileInput.files[0]);
+
+  try {
+  const response = await updateUser(formData);
+
+  if (response === null) return;
+
+  nicknameInput.value = response.data.nickname;
+
+  if (response.data.profileImage) {
+    profilePreview.src = `http://localhost:8080${response.data.profileImage}`;
+    profilePreview.style.display = 'block';
+
+    headerProfileIcon.src = `http://localhost:8080${response.data.profileImage}`;
+  }
+  else {
+    profilePreview.src = '';
+    headerProfileIcon.src = '';
+    profilePreview.style.display = 'none';
+  }
+
+} catch (error) {
+  console.error(error);
+}
+
+});
+
+

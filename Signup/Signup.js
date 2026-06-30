@@ -189,7 +189,7 @@ async function signUp(signUp_user) {
     throw new Error('회원가입 실패');
   }
 
-  return response.json();
+  return result;
 }
 
 signupButton.addEventListener('click', async function(){
