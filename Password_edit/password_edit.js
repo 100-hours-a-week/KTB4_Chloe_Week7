@@ -8,6 +8,7 @@ const helperTextPassword = document.getElementById('passwordHelper');
 const helperTextConfirmPassword = document.getElementById('passwordConfirmHelper');
 
 const editPasswordBtn = document.getElementById('submitBtn');
+const editSuccessToast = document.getElementById('toast');
 
 let isValidPassword = false;
 let isValidConfirmPassword = false;
@@ -43,7 +44,7 @@ passwordInput.addEventListener('blur', function() {
     isValidConfirmPassword = true;
   }
 
-  activeSignupButton();
+  activeEditButton();
 });
 
 confirmPasswordInput.addEventListener('blur', function() {
@@ -72,15 +73,57 @@ confirmPasswordInput.addEventListener('blur', function() {
     helperTextConfirmPassword.textContent = '';
     isValidConfirmPassword = true;
   }
-  activeSignupButton();
+  activeEditButton();
 });
 
-function activeSignupButton() {
+function activeEditButton() {
   if (isValidPassword && isValidConfirmPassword) {
     editPasswordBtn.classList.add('active');
+    editPasswordBtn.disabled = false;
   } else {
     editPasswordBtn.classList.remove('active');
+    editPasswordBtn.disabled = true;
   }
 }
+
+async function passwordEdit(update_password){
+  const userId = sessionStorage.getItem('userId');
+  const response = await fetch(`http://localhost:8080/users/${userId}/password`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(update_password),
+  });
+
+  if (response.status !== 204) {
+    throw new Error('회원가입 실패');
+  }
+}
+
+function showToast() {
+  editSuccessToast.classList.add('show');
+
+  setTimeout(() => {
+    editSuccessToast.classList.remove('show');
+  }, 2000); 
+}
+
+editPasswordBtn.addEventListener('click', async function(){
+  console.log("클릭")
+  const password = {
+    password : passwordInput.value
+  }
+
+  try {
+    await passwordEdit(password);
+    showToast();
+    passwordInput.value="";
+    confirmPasswordInput.value="";
+
+  } catch (error) {
+    console.error(error);
+  }
+})
 
 

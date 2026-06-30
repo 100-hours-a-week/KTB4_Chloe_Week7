@@ -54,7 +54,6 @@ function activeLoginButton() {
 }
 
 async function login(login_user) {
-  console.log(JSON.stringify(login_user));
   const response = await fetch('http://localhost:8080/auth/login', {
     method: 'POST',
     headers: {
