@@ -11,12 +11,15 @@ const fileNameDisplay = document.getElementById('fileName');
 
 const writeCompleteBtn = document.getElementById('submitBtn');
 
+const userId = sessionStorage.getItem("userId");
+
 profileMenuBtn.addEventListener('click', function() {
   dropdownMenu.classList.toggle('active');
 });
 
 
 titleInput.addEventListener('input', () => {
+  
   titleCount.textContent = `${titleInput.value.length}/26`;
   activeWriteCompleteButton();
 });
@@ -51,8 +54,22 @@ function activeWriteCompleteButton() {
 }
 
 
+async function writePost(Post_data){
+  const response = await fetch(`http://localhost:8080/posts/${userId}`, {
+    method: 'POST',
+    body: Post_data
+  });
 
-writeCompleteBtn.addEventListener('click', () => {
+  if(!response.status === 201){
+    throw new Error('게시글 작성 실패');
+  }
+
+  return response.json();
+}
+
+
+writeCompleteBtn.addEventListener('click',async function(){
+  const formData = new FormData();
   const title = titleInput.value;
   const content = postContentInput.value;
 
@@ -60,6 +77,17 @@ writeCompleteBtn.addEventListener('click', () => {
     alert('제목과 내용을 모두 입력해주세요.');
     return;
   }
-});
+  formData.append("title", title);
+  formData.append("content", content);
+  formData.append("postImage", postImageInput.files[0]);
 
-  
+  try{
+    const response = await writePost(formData);
+    window.location.href = response.data.link;
+
+    if(response === null) return;
+  }
+  catch(error){
+    console.error(error);
+  }
+})
