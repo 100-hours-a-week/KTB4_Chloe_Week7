@@ -88,6 +88,7 @@ function formatDateTime(dateInput) {
 function renderPostList(posts) {
 
   posts.forEach((post) => {
+
     const li = document.createElement('li');
     li.className = 'post-card';
 
@@ -131,10 +132,15 @@ function renderPostList(posts) {
     postAuthor.appendChild(authorAvatar);
     postAuthor.appendChild(authorName);
 
-    li.appendChild(postTop);
-    li.appendChild(postMeta);
-    li.appendChild(postDivider);
-    li.appendChild(postAuthor);
+    const postLink = document.createElement('a');
+    postLink.href = `../Post_detail/post_detail.html?postId=${post.post_id}`;
+
+    postLink.appendChild(postTop);
+    postLink.appendChild(postMeta);
+    postLink.appendChild(postDivider);
+    postLink.appendChild(postAuthor);
+
+    li.appendChild(postLink);
 
     postList.appendChild(li);
   });
