@@ -9,21 +9,52 @@ profileMenuBtn.addEventListener('click', function() {
   dropdownMenu.classList.toggle('active');
 });
 
-const Params = new URLSearchParams([
-  ["cursor", 1],
-  ["limit", 10]
-]);
 
-async function getlistPost(){
+let cursorId = null; //처음엔 null
+const LIMIT = 7;
+
+
+const intersectionObserver = new IntersectionObserver( async function (entries) {
+  entries.forEach(async (entry) => {
+    if (!entry.isIntersecting) return;
+
+    const result = await getlistPost();
+    renderPostList(result.data);
+  });
+});
+
+intersectionObserver.observe(document.getElementById('sentinel'));
+
+async function getlistPost() {
+
+  // cursor가 있을 때만 파라미터에 포함
+  // 최초 요청에는 cursor 값이 null이지만, 그 이후에 요청에 대해서는 cursor 값이 다 있음.
+  const Params = new URLSearchParams({ limit: LIMIT });
+
+  if (cursorId !== null) {
+    Params.set("cursor", cursorId);
+  }
+
   const response = await fetch(`http://localhost:8080/posts/${userId}?${Params.toString()}`, {
     method: 'GET'
   });
 
   if (!response.ok) {
-      throw new Error('게시글 목록 조회 실패');
-    }
+    throw new Error('게시글 목록 조회 실패');
+  }
 
-    return response.json();
+  const result = await response.json();
+
+  // 받아온 목록의 마지막 postId를 다음 cursor로 업데이트
+  const posts = result.data;
+  if (posts && posts.length > 0 && posts.length === LIMIT) {
+    cursorId = posts[posts.length - 1].post_id;
+  }
+  else{
+    intersectionObserver.unobserve(document.getElementById("sentinel"));
+  }
+
+  return result;
 }
 
 // 1,000 이상이면 1k, 10,000 이상이면 10k, 100,000 이상이면 100k 식으로 표기
@@ -55,7 +86,6 @@ function formatDateTime(dateInput) {
 }
 
 function renderPostList(posts) {
-  postList.innerHTML = '';
 
   posts.forEach((post) => {
     const li = document.createElement('li');
@@ -109,8 +139,3 @@ function renderPostList(posts) {
     postList.appendChild(li);
   });
 }
-
-document.addEventListener('DOMContentLoaded', async function() {
-  const result = await getlistPost();
-  renderPostList(result.data);
-});
