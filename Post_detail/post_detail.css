@@ -205,9 +205,19 @@ body.modal-open {
 
 .post-actions {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-end; /* 오른쪽 경계 맞춤 */
+  row-gap: 25px;
   flex-shrink: 0;
-  align-items: center;
+}
+
+.post-actions-top {
+  display: flex;
+  gap: 8px;
+}
+
+.post-actions-bottom {
+  display: flex;
 }
 
 .btn-action {
@@ -224,6 +234,11 @@ body.modal-open {
 
 .btn-action:hover {
   background-color: #eeeeee;
+}
+.post-report-wrap {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  padding-top: 20px;
 }
 
 /* =============================================

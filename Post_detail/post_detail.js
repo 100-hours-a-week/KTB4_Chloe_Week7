@@ -33,6 +33,8 @@ const commentSubmitBtn = document.getElementById('commentSubmitBtn');
 const commentEditBtn = document.querySelector('.btn-action.btn-edit-comment');
 const commentContent = document.querySelector('.comment-body');
 
+const postReportBtn = document.getElementById('postReportBtn');
+
 let isEditing = false;
 
 profileMenuBtn.addEventListener('click', function() {
@@ -413,5 +415,29 @@ likeBtn.addEventListener('click', async function() {
 });
 
 
+//게시글 신고 API 연동
+async function reportPost(){
+  const response = await fetch(`http://localhost:8080/posts/${userId}/${postId}/declaration`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  if(!response.ok){
+    throw new Error('게시글 신고 실패');
+  }
+
+  return response.json();
+} 
 
 
+postReportBtn.addEventListener('click', async function() {
+  try {
+    const result = await reportPost();
+    alert('게시글 신고가 완료되었습니다.');
+    window.location.href = "../Board/board.html";
+  } catch (error) {
+    console.error(error);
+  }
+});
