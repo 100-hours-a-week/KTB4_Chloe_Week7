@@ -13,11 +13,12 @@ const helperTextProfile = document.getElementById('profileHelper');
 
 const submitBtn = document.getElementById('submitBtn');
 
-
 const withdrawmodal = document.querySelector('.withdraw_modal');
 const withdrawBtn = document.getElementById('withdrawBtn');
 const withdrawCancelBtn = document.getElementById('withdrawCancel');
 const withdrawConfirmBtn = document.getElementById('withdrawConfirm');
+
+const editSuccessToast = document.getElementById('toast');
 
 
 
@@ -52,9 +53,6 @@ profileInput.addEventListener('change', function () {
   isValidProfile = true;
 
 });
-
-
-
 
 
 //회원 탈퇴 -> 모달창 띄우기
@@ -138,11 +136,19 @@ async function updateUser(update_User){
       return null;
   }
 
-  if (response.status !== 201) {
-    throw new Error('회원가입 실패');
+  if (response.status !== 200) {
+    throw new Error('회원 정보 수정 실패');
   }
   return result;
 
+}
+
+function showToast() {
+  editSuccessToast.classList.add('show');
+
+  setTimeout(() => {
+    editSuccessToast.classList.remove('show');
+  }, 2000); 
 }
 
 submitBtn.addEventListener('click', async function() {
@@ -195,6 +201,8 @@ submitBtn.addEventListener('click', async function() {
     headerProfileIcon.src = '';
     profilePreview.style.display = 'none';
   }
+
+  showToast();
 
 } catch (error) {
   console.error(error);
