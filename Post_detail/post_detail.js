@@ -50,18 +50,6 @@ postDeleteCancelBtn.addEventListener('click', function() {
 });
 
 
-
-
-likeBtn.addEventListener('click', function() {
-  if (likeBtn.classList.contains('liked')) {
-    likeBtn.classList.remove('liked');
-    likeCount.textContent = parseInt(likeCount.textContent) - 1;
-  } else {
-    likeBtn.classList.add('liked');
-    likeCount.textContent = parseInt(likeCount.textContent) + 1;
-  }
-});
-
 commentInput.addEventListener('input', function() {
   const commentText = commentInput.value;
   if(commentText){
@@ -113,7 +101,10 @@ const userId = sessionStorage.getItem("userId");
 //게시글 상세 조회 API 연동
 async function getDetailPost(postId){
   const reponse = await fetch(`http://localhost:8080/posts/${userId}/${postId}`, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
   });
 
   if(!reponse.ok){
@@ -124,6 +115,7 @@ async function getDetailPost(postId){
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
+
   const result = await getDetailPost(postId);
 
   postTitle.textContent = result.data.post.title;
@@ -152,7 +144,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 //게시글 삭제 API 연동
 async function deletePost(postId){
   const response = await fetch(`http://localhost:8080/posts/${userId}/${postId}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    }
   });
 
   if(!response.ok){
@@ -263,7 +258,10 @@ async function editComment(commentId,comment_data){
 //댓글 삭제 API 연동
 async function deleteComment(commentId){
   const response = await fetch(`http://localhost:8080/posts/${userId}/${postId}/comment/${commentId}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    }
   });
 
   if (!response.ok) {
@@ -354,3 +352,60 @@ commentSubmitBtn.addEventListener('click', async function() {
     console.error(error);
   }
 });
+
+let isLiked = false; 
+
+//게시글 좋아요 등록 API 연동
+async function likePost(postId){
+  const response = await fetch(`http://localhost:8080/posts/${userId}/${postId}/like`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  if(!response.ok){
+    throw new Error('게시글 좋아요 등록 실패');
+  }
+
+  return response.json();
+}
+
+//게시글 좋아요 취소 API 연동
+async function unlikePost(postId){
+  const response = await fetch(`http://localhost:8080/posts/${userId}/${postId}/like`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  if(!response.ok){
+    throw new Error('게시글 좋아요 취소 실패');
+  }
+
+  return response.json();
+}
+
+likeBtn.addEventListener('click', async function() {
+  try {
+    if(likeBtn.classList.contains('liked') && isLiked) {
+      const result = await unlikePost(postId);
+      likeBtn.classList.remove('liked');
+      likeCount.textContent = formatCount(result.data.like_count);
+      isLiked = false;
+    } else {
+      const result = await likePost(postId);
+      likeBtn.classList.add('liked');
+      likeCount.textContent = formatCount(result.data.like_count);
+      isLiked = true;
+
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+
+

@@ -79,7 +79,9 @@ writeCompleteBtn.addEventListener('click',async function(){
   }
   formData.append("title", title);
   formData.append("content", content);
-  formData.append("postImage", postImageInput.files[0]);
+  if (postImageInput.files.length > 0) {
+    formData.append("postImage", postImageInput.files[0]);
+  }
 
   try{
     const response = await writePost(formData);
