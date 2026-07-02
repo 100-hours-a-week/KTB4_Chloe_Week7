@@ -11,6 +11,8 @@ const postBody = document.querySelector('.post-body');
 const viewCount = document.querySelectorAll('.stat-num')[1];
 const commentCount = document.querySelectorAll('.stat-num')[2];
 
+const postEditBtn = document.getElementById('postEditBtn');
+
 const postDeleteModal = document.querySelector('.post_delete_modal');
 const postDeleteBtn = document.getElementById('postDeleteBtn');
 const postDeleteConfirmBtn = document.getElementById('postDeleteConfirm');
@@ -139,6 +141,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     commentList.appendChild(createCommentElement(comment));
   });
 
+});
+//게시글 수정 페이지 이동
+postEditBtn.addEventListener('click', function() {
+  window.location.href = `../Post_edit/post_edit.html?postId=${postId}`;
 });
 
 //게시글 삭제 API 연동

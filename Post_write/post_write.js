@@ -77,6 +77,7 @@ writeCompleteBtn.addEventListener('click',async function(){
     alert('제목과 내용을 모두 입력해주세요.');
     return;
   }
+  
   formData.append("title", title);
   formData.append("content", content);
   if (postImageInput.files.length > 0) {
