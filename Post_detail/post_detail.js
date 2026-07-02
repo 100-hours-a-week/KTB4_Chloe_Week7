@@ -67,8 +67,6 @@ commentInput.addEventListener('input', function() {
 
 
 
-
-
 // 1,000 이상이면 1k, 10,000 이상이면 10k, 100,000 이상이면 100k 식으로 표기
 function formatCount(count) {
   if (count >= 100000) {
@@ -123,7 +121,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const result = await getDetailPost(postId);
 
   postTitle.textContent = result.data.post.title;
-  //authorAvatar.src = `http://localhost:8080${result.data.profileImage}`;
   authorName.textContent = result.data.post.writer;
   postDate.textContent = formatDateTime(result.data.post.datewritten);
   postBody.textContent = result.data.post.content;
@@ -285,6 +282,7 @@ commentDeleteCancelBtn.addEventListener('click', function() {
 
 
 let currentEditCommentId = null;
+let currentEditCommentBody = null;
 
 //각 댓글 당 수정&삭제 버튼 등록..
 commentList.addEventListener('click', async function(e) {
@@ -303,6 +301,7 @@ commentList.addEventListener('click', async function(e) {
     isEditing = true;
 
     currentEditCommentId = editBtn.dataset.commentId;
+    currentEditCommentBody = editBtn.closest('.comment-item').querySelector('.comment-body');
   }
 
   if(deleteBtn) {
@@ -331,19 +330,9 @@ commentSubmitBtn.addEventListener('click', async function() {
   try {
     //댓글 수정으로 버튼이 변한 경우
     if (isEditing) {
+		   //currentEditCommentId는 해당 댓글의 수정 버튼이 눌리면 값이 들어가짐.
       const result = await editComment(currentEditCommentId, comment_data);
-
-      // 제출 시점에 ID로 다시 찾기 (재렌더링돼도 안전)
-      const editBtnAgain = commentList.querySelector(
-        `.btn-edit-comment[data-comment-id="${currentEditCommentId}"]`
-      );
-      const targetBody = editBtnAgain?.closest('.comment-item')?.querySelector('.comment-body');
-
-      if (targetBody) {
-        targetBody.textContent = result.data.commentContent;
-      } else {
-        console.warn('해당 댓글 요소를 찾을 수 없음:', currentEditCommentId);
-      }
+      currentEditCommentBody.textContent = result.data.commentContent; 
 
       isEditing = false;
       currentEditCommentId = null;
