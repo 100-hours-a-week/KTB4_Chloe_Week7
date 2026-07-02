@@ -2,12 +2,16 @@
 
 ## 회원 가입
 <img width="1280" height="720" alt="회원 가-1" src="https://github.com/user-attachments/assets/709d4693-4d1a-4acd-8172-d46b55b532dd" />
+
 ## 로그인
 <img width="1280" height="720" alt="로그-1" src="https://github.com/user-attachments/assets/e9a8a32a-c360-4c29-9475-b859b2d07135" />
+
 ## 게시글 목록 조회
 <img width="1280" height="720" alt="게시글 목록 조-1" src="https://github.com/user-attachments/assets/9f3768bd-def2-4b75-a4b5-76d893aaaa1f" />
+
 ## 게시글 작성
 <img width="1280" height="720" alt="게시글-작성-1" src="https://github.com/user-attachments/assets/eb0a3450-0200-4cfd-bfab-94b4791f7b0d" />
+
 ## 게시글 상세 조회
 <img width="1280" height="720" alt="게시글 상세 조회 - 진-1" src="https://github.com/user-attachments/assets/d63da2f9-fb49-40ea-9aac-0a0ecd0276c3" />
 ## 좋아요
