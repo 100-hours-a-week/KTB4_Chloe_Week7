@@ -16,7 +16,7 @@
 <img width="1280" height="720" alt="게시글 상세 조회 - 진-1" src="https://github.com/user-attachments/assets/d63da2f9-fb49-40ea-9aac-0a0ecd0276c3" />
 
 ## 좋아요
-<img width="1280" height="720" alt="짠-좋아-1" src="https://github.com/user-attachments/assets/cc1e058e-6379-4d3c-86e5-2989a5a12370" />
+<img width="1280" height="720" alt="댓글-수-1" src="https://github.com/user-attachments/assets/dc921694-bf51-48d1-822e-f934c8df54a3" />
 
 ## 게시글 신고
 <img width="1280" height="720" alt="게시글-신-1" src="https://github.com/user-attachments/assets/317b62ff-cbd1-4757-a183-23d4c06854b6" />
@@ -25,7 +25,8 @@
 <img width="1280" height="720" alt="게시글 상세 조-1" src="https://github.com/user-attachments/assets/9eeac8c7-12f9-4d9c-9042-0e352f746afc" />
 
 ## 댓글 수정
-<img width="1280" height="720" alt="댓글-수-1" src="https://github.com/user-attachments/assets/dc921694-bf51-48d1-822e-f934c8df54a3" />
+<img width="1280" height="720" alt="짠-좋아-1" src="https://github.com/user-attachments/assets/cc1e058e-6379-4d3c-86e5-2989a5a12370" />
+
 
 ## 댓글 삭제
 <img width="1280" height="720" alt="댓글-삭-1" src="https://github.com/user-attachments/assets/ce89564a-2bbc-4bb6-953e-21ab766b8922" />
