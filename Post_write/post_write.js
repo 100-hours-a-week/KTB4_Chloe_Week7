@@ -60,7 +60,7 @@ async function writePost(Post_data){
     body: Post_data
   });
 
-  if(!response.status === 201){
+  if(response.status !== 201){
     throw new Error('게시글 작성 실패');
   }
 
