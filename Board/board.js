@@ -3,8 +3,6 @@ const dropdownMenu = document.getElementById('dropdownMenu');
 
 const postList = document.querySelector('.post-list');
 
-const userId = sessionStorage.getItem("userId");
-
 profileMenuBtn.addEventListener('click', function() {
   dropdownMenu.classList.toggle('active');
 });
@@ -35,8 +33,11 @@ async function getlistPost() {
     Params.set("cursor", cursorId);
   }
 
-  const response = await fetch(`http://localhost:8080/posts/${userId}?${Params.toString()}`, {
-    method: 'GET'
+  const response = await fetch(`http://localhost:8080/posts`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    }
   });
 
   if (!response.ok) {

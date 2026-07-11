@@ -18,9 +18,9 @@ const withdrawBtn = document.getElementById('withdrawBtn');
 const withdrawCancelBtn = document.getElementById('withdrawCancel');
 const withdrawConfirmBtn = document.getElementById('withdrawConfirm');
 
+const LogoutBtn = document.getElementById('logoutBtn');
+
 const editSuccessToast = document.getElementById('toast');
-
-
 
 let isValidNickname = false;
 let isValidProfile = false;
@@ -54,6 +54,11 @@ profileInput.addEventListener('change', function () {
 
 });
 
+LogoutBtn.addEventListener('click', function() {
+  localStorage.removeItem('accessToken');
+  window.location.href = '../Login/login.html';
+});
+
 
 //회원 탈퇴 -> 모달창 띄우기
 withdrawBtn.addEventListener('click', function() {
@@ -66,9 +71,11 @@ withdrawCancelBtn.addEventListener('click', function() {
 
 //회원 정보 조회 API
 async function getUser() {
- const userId = sessionStorage.getItem('userId');
-  const response = await fetch(`http://localhost:8080/users/${userId}`, {
-    method: 'GET'
+  const response = await fetch(`http://localhost:8080/users`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    }
   });
 
   if (!response.ok) {
@@ -85,12 +92,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   nicknameInput.value = result.data.nickname;
 
   if (result.data.profileImage) {
-    profilePreview.src = `http://localhost:8080${result.data.profileImage}`;
-    headerProfileIcon.src = `http://localhost:8080${result.data.profileImage}`;
+    //profilePreview.src = `http://localhost:8080${result.data.profileImage}`;
+    //headerProfileIcon.src = `http://localhost:8080${result.data.profileImage}`;
     profilePreview.style.display = 'block';
   } else {
     profilePreview.src = '';
-    headerProfileIcon.src = '';
+    //headerProfileIcon.src = '';
     profilePreview.style.display = 'none';
   }
 });
@@ -98,8 +105,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 //회원 탈퇴 API 
 async function withdrawUser(){
   const userId = sessionStorage.getItem('userId');
-  const response = await fetch(`http://localhost:8080/users/${userId}`, {
-      method: 'DELETE'
+  const response = await fetch(`http://localhost:8080/users`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+      }
     });
 
   if (!response.ok) {
@@ -121,8 +131,11 @@ withdrawConfirmBtn.addEventListener('click',async function(){
 //회원 정보 수정 API
 async function updateUser(update_User){
   const userId = sessionStorage.getItem('userId');
-  const response = await fetch(`http://localhost:8080/users/${userId}`, {
+  const response = await fetch(`http://localhost:8080/users`, {
       method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+      },
       body : update_User
     });
 
@@ -181,8 +194,12 @@ submitBtn.addEventListener('click', async function() {
   }
 
   formData.append("nickname",nicknameInput.value);
-  formData.append("profileImage",profileInput.files[0]);
 
+  if (profileInput.files.length > 0) {
+    formData.append("profileImage", profileInput.files[0]);
+  }
+
+  
   try {
   const response = await updateUser(formData);
 
@@ -191,14 +208,14 @@ submitBtn.addEventListener('click', async function() {
   nicknameInput.value = response.data.nickname;
 
   if (response.data.profileImage) {
-    profilePreview.src = `http://localhost:8080${response.data.profileImage}`;
+    //profilePreview.src = `http://localhost:8080${response.data.profileImage}`;
     profilePreview.style.display = 'block';
 
-    headerProfileIcon.src = `http://localhost:8080${response.data.profileImage}`;
+    //headerProfileIcon.src = `http://localhost:8080${response.data.profileImage}`;
   }
   else {
     profilePreview.src = '';
-    headerProfileIcon.src = '';
+    //headerProfileIcon.src = '';
     profilePreview.style.display = 'none';
   }
 
@@ -208,6 +225,10 @@ submitBtn.addEventListener('click', async function() {
   console.error(error);
 }
 
+
+
+
 });
+
 
 

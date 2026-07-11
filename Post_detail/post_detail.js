@@ -102,6 +102,7 @@ async function getDetailPost(postId){
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     }
   });
 
@@ -148,6 +149,7 @@ async function deletePost(postId){
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     }
   });
 
@@ -171,6 +173,7 @@ async function createComment(comment_data){
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
       },
       body: JSON.stringify(comment_data),
     });
@@ -245,6 +248,7 @@ async function editComment(commentId,comment_data){
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     },
     body: JSON.stringify(comment_data),
   });
@@ -262,6 +266,7 @@ async function deleteComment(commentId){
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     }
   });
 
@@ -354,6 +359,7 @@ async function likePost(postId){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     }
   });
 
@@ -370,6 +376,7 @@ async function unlikePost(postId){
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     }
   });
 
@@ -406,6 +413,7 @@ async function reportPost(){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     }
   });
 

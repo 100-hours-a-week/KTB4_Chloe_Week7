@@ -57,6 +57,9 @@ function activeWriteCompleteButton() {
 async function writePost(Post_data){
   const response = await fetch(`http://localhost:8080/posts/${userId}`, {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    },
     body: Post_data
   });
 
