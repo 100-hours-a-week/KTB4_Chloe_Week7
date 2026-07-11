@@ -69,17 +69,12 @@ commentInput.addEventListener('input', function() {
 
 // 1,000 이상이면 1k, 10,000 이상이면 10k, 100,000 이상이면 100k 식으로 표기
 function formatCount(count) {
-  if (count >= 100000) {
-    return `${Math.floor(count / 1000)}k`;
-  }
-  if (count >= 10000) {
-    return `${Math.floor(count / 1000)}k`;
-  }
   if (count >= 1000) {
-    return `${Math.floor(count / 1000)}k`;
+    return `${parseFloat((count / 1000).toFixed(1))}k`;
   }
   return `${count}`;
 }
+
 
 // yyyy-mm-dd hh:mm:ss 형식으로 변환
 function formatDateTime(dateInput) {
@@ -94,6 +89,7 @@ function formatDateTime(dateInput) {
 
   return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
 }
+
 
 const params = new URLSearchParams(document.location.search);
 const postId = params.get('postId');

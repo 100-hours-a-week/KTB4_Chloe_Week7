@@ -59,14 +59,8 @@ async function getlistPost() {
 
 // 1,000 이상이면 1k, 10,000 이상이면 10k, 100,000 이상이면 100k 식으로 표기
 function formatCount(count) {
-  if (count >= 100000) {
-    return `${Math.floor(count / 1000)}k`;
-  }
-  if (count >= 10000) {
-    return `${Math.floor(count / 1000)}k`;
-  }
   if (count >= 1000) {
-    return `${Math.floor(count / 1000)}k`;
+    return `${parseFloat((count / 1000).toFixed(1))}k`;
   }
   return `${count}`;
 }
