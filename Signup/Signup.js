@@ -21,6 +21,19 @@ let isValidConfirmPassword = false;
 let isValidNickname = false;
 let isValidProfile = false;
 
+
+function setProfileInvalid() {
+  helperTextProfile.classList.add('error');
+  helperTextProfile.textContent = '프로필 사진을 추가해주세요.';
+  profilePreview.src = '';
+  profilePreview.style.display = 'none';
+  profilePlus.style.display = 'block';
+  isValidProfile = false;
+}
+
+// 페이지 로드 시 최초 상태로 미리 세팅
+setProfileInvalid();
+
 //프로필 사진 
 profileInput.addEventListener('change', function () {
   const file = profileInput.files[0];
