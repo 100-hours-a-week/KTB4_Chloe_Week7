@@ -142,7 +142,7 @@ confirmPasswordInput.addEventListener('blur', function() {
 nicknameInput.addEventListener('blur', function() {
   const nickname = nicknameInput.value;
 
-  if (nickname.length >= 11) {
+  if (nickname.length >0) {
     helperTextNickname.classList.add('error');
     helperTextNickname.textContent = '닉네임은 최대 10자 까지 작성 가능합니다.';
     isValidNickname = false;
