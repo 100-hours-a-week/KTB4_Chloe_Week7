@@ -169,7 +169,7 @@ submitBtn.addEventListener('click', async function() {
   const formData = new FormData();
   const nickname = nicknameInput.value;
 
-  if (nickname.length > 11) {
+  if (nickname.length > 10) {
     helperTextNickname.classList.add('error');
     helperTextNickname.textContent = '닉네임은 최대 10자 까지 작성 가능합니다.';
     isValidNickname = false;
@@ -181,16 +181,17 @@ submitBtn.addEventListener('click', async function() {
     helperTextNickname.classList.add("error");
     helperTextNickname.textContent = "닉네임을 입력해주세요.";
     isValidNickname = false;
-  } else if (!isValidProfile){
+  } 
+
+  if (!isValidProfile) {
     helperTextProfile.classList.add('error');
     helperTextProfile.textContent = '프로필 사진을 추가해주세요.';
     profilePreview.src = '';
     profilePreview.style.display = 'none';
-    isValidProfile = false;
-  } else {
-    helperTextNickname.classList.remove("error");
-    helperTextNickname.textContent = "";
-    isValidNickname = true;
+  }
+
+  if (!isValidNickname || !isValidProfile) {
+    return;
   }
 
   formData.append("nickname",nicknameInput.value);
