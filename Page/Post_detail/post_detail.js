@@ -1,3 +1,5 @@
+import request from "../../API/request.js";
+
 const profileMenuBtn = document.getElementById('profileMenuBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -96,25 +98,13 @@ const postId = params.get('postId');
 
 
 //게시글 상세 조회 API 연동
-async function getDetailPost(postId){
-  const reponse = await fetch(`http://localhost:8080/posts/${postId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    }
-  });
-
-  if(!reponse.ok){
-    throw new Error('게시글 상세 조회 실패');
-  }
-
-  return reponse.json();
+async function getDetailPost(){
+  return await request(`/posts/${postId}`,'GET')
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
 
-  const result = await getDetailPost(postId);
+  const result = await getDetailPost();
 
   postTitle.textContent = result.data.post.title;
   authorName.textContent = result.data.post.writer;
@@ -143,23 +133,13 @@ postEditBtn.addEventListener('click', function() {
 });
 
 //게시글 삭제 API 연동
-async function deletePost(postId){
-  const response = await fetch(`http://localhost:8080/posts/${postId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    }
-  });
-
-  if(!response.ok){
-    throw new Error('게시글 삭제 실패');
-  }
+async function deletePost(){
+  return await request(`/posts/${postId}`,'DELETE');
 }
 
 postDeleteConfirmBtn.addEventListener('click', async function(){
   try{
-   await deletePost(postId);
+   await deletePost();
     window.location.href = "../Board/board.html";
   } catch (error) {
     console.error(error);
@@ -168,20 +148,7 @@ postDeleteConfirmBtn.addEventListener('click', async function(){
 
 //댓글 생성 API 연동
 async function createComment(comment_data){
-    const response = await fetch(`http://localhost:8080/posts/${postId}/comment`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-      },
-      body: JSON.stringify(comment_data),
-    });
-  
-    if (!response.ok) {
-      throw new Error('댓글 작성 실패');
-    }
-  
-    return response.json();
+    return await request(`/posts/${postId}/comment`,'POST',comment_data);
 }
 
 
@@ -242,36 +209,12 @@ function createCommentElement(comment) {
 
 //댓글 수정 API 연동
 async function editComment(commentId,comment_data){
-
-  const response = await fetch(`http://localhost:8080/posts/${postId}/comment/${commentId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    },
-    body: JSON.stringify(comment_data),
-  });
-
-  if (!response.ok) {
-    throw new Error('댓글 수정 실패');
-  }
-
-  return response.json();
+  return await request(`/posts/${postId}/comment/${commentId}`,'PUT',comment_data)
 }
 
 //댓글 삭제 API 연동
 async function deleteComment(commentId){
-  const response = await fetch(`http://localhost:8080/posts/${postId}/comment/${commentId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error('댓글 삭제 실패');
-  }
+  return await request(`/posts/${postId}/comment/${commentId}`,'DELETE')
 } 
 
 //댓글 삭제 모달
@@ -358,37 +301,13 @@ commentSubmitBtn.addEventListener('click', async function() {
 let isLiked = false; 
 
 //게시글 좋아요 등록 API 연동
-async function likePost(postId){
-  const response = await fetch(`http://localhost:8080/posts/${postId}/like`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    }
-  });
-
-  if(!response.ok){
-    throw new Error('게시글 좋아요 등록 실패');
-  }
-
-  return response.json();
+async function likePost(){
+  return await request(`/posts/${postId}/like`,'POST')
 }
 
 //게시글 좋아요 취소 API 연동
-async function unlikePost(postId){
-  const response = await fetch(`http://localhost:8080/posts/${postId}/like`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    }
-  });
-
-  if(!response.ok){
-    throw new Error('게시글 좋아요 취소 실패');
-  }
-
-  return response.json();
+async function unlikePost(){
+  return await request(`/posts/${postId}/like`,'DELETE')
 }
 
 likeBtn.addEventListener('click', async function() {
@@ -413,19 +332,7 @@ likeBtn.addEventListener('click', async function() {
 
 //게시글 신고 API 연동
 async function reportPost(){
-  const response = await fetch(`http://localhost:8080/posts/${postId}/declaration`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    }
-  });
-
-  if(!response.ok){
-    throw new Error('게시글 신고 실패');
-  }
-
-  return response.json();
+  return await request(`/posts/${postId}/declaration`,'POST')
 } 
 
 

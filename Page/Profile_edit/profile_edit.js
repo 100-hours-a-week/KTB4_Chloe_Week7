@@ -1,3 +1,5 @@
+import request from "../../API/request.js";
+
 const profileMenuBtn = document.getElementById('profileMenuBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -130,30 +132,7 @@ withdrawConfirmBtn.addEventListener('click',async function(){
 
 //회원 정보 수정 API
 async function updateUser(update_User){
-  const userId = sessionStorage.getItem('userId');
-  const response = await fetch(`http://localhost:8080/users`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-      },
-      body : update_User
-    });
-
-    const result = await response.json();
-
-    if (response.status === 409) {
-      helperTextNickname.classList.add('error');
-      helperTextNickname.textContent = "중복된 닉네임 입니다.";
-      isValidNickname = false;
-
-      return null;
-  }
-
-  if (response.status !== 200) {
-    throw new Error('회원 정보 수정 실패');
-  }
-  return result;
-
+  return await request('/users','PATCH',update_User)
 }
 
 function showToast() {
@@ -223,11 +202,19 @@ submitBtn.addEventListener('click', async function() {
   showToast();
 
 } catch (error) {
-  console.error(error);
+    
+    if (error.status === 409) {
+        if (error.field === 'nickname') {
+          helperTextNickname.classList.add('error');
+          helperTextNickname.textContent = "중복된 닉네임 입니다.";
+          isValidNickname = false;
+        }
+
+    } else {
+        console.error(error);
+    }
+
 }
-
-
-
 
 });
 

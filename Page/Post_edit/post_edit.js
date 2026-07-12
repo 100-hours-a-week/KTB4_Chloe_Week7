@@ -1,3 +1,5 @@
+import request from "../../API/request.js";
+
 const profileMenuBtn = document.getElementById('profileMenuBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -57,17 +59,7 @@ const postId = params.get('postId');
 
 //게시글 수정 API 연동
 async function editPost(Post_data) {
-  const response = await fetch(`http://localhost:8080/posts/${userId}/${postId}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    },
-    body: Post_data
-  });
-
-  if (response.status !== 204) {
-    throw new Error('게시글 수정에 실패했습니다.');
-  }
+  return await request(`/posts/${userId}/${postId}`,'PUT',Post_data)
 }
 
 

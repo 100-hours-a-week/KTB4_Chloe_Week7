@@ -1,3 +1,5 @@
+import request from "../../API/request.js";
+
 const profileMenuBtn = document.getElementById('profileMenuBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -82,19 +84,7 @@ function activeEditButton() {
 }
 
 async function passwordEdit(update_password){
-  const userId = sessionStorage.getItem('userId');
-  const response = await fetch(`http://localhost:8080/users/${userId}/password`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    },
-    body: JSON.stringify(update_password),
-  });
-
-  if (response.status !== 204) {
-    throw new Error('회원가입 실패');
-  }
+  return await request(`/users/${userId}/password`,'PATCH',update_password)
 }
 
 function showToast() {

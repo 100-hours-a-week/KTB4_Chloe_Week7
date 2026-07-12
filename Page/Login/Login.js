@@ -1,3 +1,6 @@
+import request from "../../API/request.js";
+
+
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const helperTextEmail = document.getElementById('helperTextEmail');
@@ -53,20 +56,8 @@ function activeLoginButton() {
   }
 }
 
-async function login(login_user) {
-  const response = await fetch('http://localhost:8080/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(login_user),
-  });
-
-  if (!(response.status === 200)) {
-    throw new Error('로그인 실패');
-  }
-
-  return response.json();
+async function login(login_user) { 
+  return await request('/auth/login','POST',login_user)
 }
 
 loginButton.addEventListener('click', async function () {

@@ -1,3 +1,5 @@
+import request from "../../API/request.js";
+
 const profileMenuBtn = document.getElementById('profileMenuBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -33,18 +35,7 @@ async function getlistPost() {
     Params.set("cursor", cursorId);
   }
 
-  const response = await fetch(`http://localhost:8080/posts?${Params.toString()}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error('게시글 목록 조회 실패');
-  }
-
-  const result = await response.json();
+  const result = await request(`/posts?${Params.toString()}`, 'GET');
 
   // 받아온 목록의 마지막 postId를 다음 cursor로 업데이트
   const posts = result.data;

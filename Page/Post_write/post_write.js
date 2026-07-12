@@ -1,3 +1,5 @@
+import request from "../../API/request.js";
+
 const profileMenuBtn = document.getElementById('profileMenuBtn');
 const dropdownMenu = document.getElementById('dropdownMenu');
 
@@ -55,19 +57,7 @@ function activeWriteCompleteButton() {
 
 
 async function writePost(Post_data){
-  const response = await fetch(`http://localhost:8080/posts/${userId}`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    },
-    body: Post_data
-  });
-
-  if(response.status !== 201){
-    throw new Error('게시글 작성 실패');
-  }
-
-  return response.json();
+  return await request(`/posts/${userId}`,'POST',Post_data);
 }
 
 
