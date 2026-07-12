@@ -57,9 +57,25 @@ function activeEditCompleteButton() {
 const params = new URLSearchParams(document.location.search);
 const postId = params.get('postId');
 
+//게시글 수정 페이지 기본값 API 연동
+async function defaultEditPage(){
+  console.log("요청")
+  return await request(`/posts/${postId}/edit`,'GET')
+}
+
+document.addEventListener('DOMContentLoaded', async function(){
+    const response = await defaultEditPage();
+    console.log(response)
+    titleInput.value = response.data.title;
+    postContentInput.textContent = response.data.content;
+    fileNameDisplay.textContent = response.data.postImage;
+
+})
+
+
 //게시글 수정 API 연동
 async function editPost(Post_data) {
-  return await request(`/posts/${userId}/${postId}`,'PUT',Post_data)
+  return await request(`/posts/${postId}`,'PUT',Post_data)
 }
 
 
