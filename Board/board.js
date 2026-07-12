@@ -33,7 +33,7 @@ async function getlistPost() {
     Params.set("cursor", cursorId);
   }
 
-  const response = await fetch(`http://localhost:8080/posts`, {
+  const response = await fetch(`http://localhost:8080/posts?${Params.toString()}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
