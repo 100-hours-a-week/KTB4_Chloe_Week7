@@ -5,6 +5,11 @@ const dropdownMenu = document.getElementById('dropdownMenu');
 
 const postList = document.querySelector('.post-list');
 
+const sentinel = document.getElementById("sentinel");
+const postLoading = document.getElementById("postLoading");
+const postEmpty = document.getElementById("postEmpty");
+const postError = document.getElementById("postError");
+
 profileMenuBtn.addEventListener('click', function() {
   dropdownMenu.classList.toggle('active');
 });
@@ -13,17 +18,39 @@ profileMenuBtn.addEventListener('click', function() {
 let cursorId = null; //처음엔 null
 const LIMIT = 7;
 
+let isLoading = false;
+
 
 const intersectionObserver = new IntersectionObserver( async function (entries) {
   entries.forEach(async (entry) => {
     if (!entry.isIntersecting) return;
+    if (isLoading) return;
 
-    const result = await getlistPost();
-    renderPostList(result.data);
-  });
+    try {
+      isLoading = true;
+
+      postLoading.hidden = false;
+      postError.hidden = true;
+
+      const result = await getlistPost();
+      const posts = result.data
+      if (posts.length > 0) {
+        postEmpty.hidden = true;
+        renderPostList(posts);
+      }
+
+    } catch (error) {
+      console.error(error);
+      postError.hidden = false;
+
+    } finally {
+      isLoading = false;
+      postLoading.hidden = true;
+    }
+  })
 });
 
-intersectionObserver.observe(document.getElementById('sentinel'));
+intersectionObserver.observe(sentinel);
 
 async function getlistPost() {
 
@@ -43,7 +70,7 @@ async function getlistPost() {
     cursorId = posts[posts.length - 1].post_id;
   }
   else{
-    intersectionObserver.unobserve(document.getElementById("sentinel"));
+    intersectionObserver.unobserve(sentinel);
   }
 
   return result;

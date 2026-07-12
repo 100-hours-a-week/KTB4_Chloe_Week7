@@ -36,7 +36,10 @@
 
     <!-- 게시글 목록 -->
     <ul class="post-list"></ul>
-    <div class="scrolerFooter" id ="sentinel"></div>
+      <p id="postLoading" hidden>게시글을 불러오는 중입니다.</p>
+      <p id="postEmpty" hidden>등록된 게시글이 없습니다.</p>
+      <p id="postError" hidden>게시글을 불러오지 못했습니다.</p>  
+     <div class="scrolerFooter" id ="sentinel"></div>
   </main>
 
   <script type="module" src="board.js"></script>
