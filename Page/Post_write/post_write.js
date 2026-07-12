@@ -57,7 +57,7 @@ function activeWriteCompleteButton() {
 
 
 async function writePost(Post_data){
-  return await request(`/posts/${userId}`,'POST',Post_data);
+  return await request(`/posts`,'POST',Post_data);
 }
 
 

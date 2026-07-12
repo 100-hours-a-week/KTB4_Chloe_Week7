@@ -38,6 +38,8 @@ const commentContent = document.querySelector('.comment-body');
 const postReportBtn = document.getElementById('postReportBtn');
 
 let isEditing = false;
+let isLiked = false; 
+
 
 profileMenuBtn.addEventListener('click', function() {
   dropdownMenu.classList.toggle('active');
@@ -117,10 +119,16 @@ document.addEventListener('DOMContentLoaded', async function () {
   } else {
     postImagePlaceholder.style.display = 'none';
   }
+ 
+    if(result.data.is_liked){
+      isLiked = true;
+      likeBtn.classList.add('liked');
+    }
 
   viewCount.textContent = formatCount(result.data.post.view_count);
   commentCount.textContent = formatCount(result.data.post.comment_count);
   likeCount.textContent = formatCount(result.data.post.like_count);
+ 
 
   result.data.comments.forEach((comment) => {
     commentList.appendChild(createCommentElement(comment));
@@ -298,7 +306,6 @@ commentSubmitBtn.addEventListener('click', async function() {
   }
 });
 
-let isLiked = false; 
 
 //게시글 좋아요 등록 API 연동
 async function likePost(){
