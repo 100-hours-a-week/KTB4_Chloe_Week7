@@ -1,3 +1,5 @@
+import request from "../../API/request.js";
+
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const confirmPasswordInput = document.getElementById('passwordConfirm');
@@ -142,7 +144,7 @@ confirmPasswordInput.addEventListener('blur', function() {
 nicknameInput.addEventListener('blur', function() {
   const nickname = nicknameInput.value;
 
-  if (nickname.length >0) {
+  if (nickname.length >10) {
     helperTextNickname.classList.add('error');
     helperTextNickname.textContent = '닉네임은 최대 10자 까지 작성 가능합니다.';
     isValidNickname = false;
@@ -173,55 +175,43 @@ function activeSignupButton() {
   }
 }
 
+
+
 async function signUp(signUp_user) {
-  const response = await fetch('http://localhost:8080/users/signup', {
-    method: 'POST',
-    body: signUp_user
-  });
-
-  const result = await response.json();
-  
-  if (response.status === 409) {
-    if (result.message === '중복된 이메일이 존재합니다.') {
-      helperTextEmail.classList.add('error');
-      helperTextEmail.textContent = "중복된 이메일 입니다.";
-      isValidEmail = false;
-    }
-
-    if (result.message === '중복된 닉네임이 존재합니다.') {
-      helperTextNickname.classList.add('error');
-      helperTextNickname.textContent = "중복된 닉네임 입니다.";
-      isValidNickname = false;
-    }
-
-    activeSignupButton();
-    return null;
-  }
-
-  if (response.status !== 201) {
-    throw new Error('회원가입 실패');
-  }
-
-  return result;
+  return await request('/users/signup', 'POST', signUp_user);
 }
 
-signupButton.addEventListener('click', async function(){
-
+signupButton.addEventListener('click', async function () {
   const formData = new FormData();
 
-  formData.append("email",emailInput.value);
-  formData.append("password",passwordInput.value);
-  formData.append("nickname",nicknameInput.value);
-  formData.append("profile_image",profileInput.files[0]);
+  formData.append("email", emailInput.value);
+  formData.append("password", passwordInput.value);
+  formData.append("nickname", nicknameInput.value);
+  formData.append("profile_image", profileInput.files[0]);
 
   try {
-    const response = await signUp(formData);
-    console.log(response);
+    const result = await signUp(formData);
+    console.log(result.data.link);
+    window.location.href = result.data.link;
 
-    if (response === null) return;
-
-    window.location.href = response.data.link;
   } catch (error) {
-    console.error(error);
+    if (error.status === 409) {
+      if (error.field === 'email') {
+        helperTextEmail.classList.add('error');
+        helperTextEmail.textContent = "중복된 이메일 입니다.";
+        isValidEmail = false;
+      }
+
+      if (error.field === 'nickname') {
+        helperTextNickname.classList.add('error');
+        helperTextNickname.textContent = "중복된 닉네임 입니다.";
+        isValidNickname = false;
+      }
+
+      activeSignupButton();
+
+    } else {
+      console.error(error);
+    }
   }
 });
