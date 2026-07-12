@@ -35,7 +35,7 @@ body.modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(45, 42, 38, 0.45);
   z-index: 200;
 }
 
@@ -44,28 +44,29 @@ body.modal-open {
 ============================================= */
 .modal {
   background-color: #ffffff;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 36px 32px 28px;
   width: 340px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-shadow: 0 20px 50px rgba(45, 42, 38, 0.2);
 }
 
 .modal-title {
   font-family: 'Pretendard', sans-serif;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 19px;
   line-height: 130%;
-  color: #000000;
+  color: #2D2A26;
 }
 
 .modal-desc {
   font-family: 'Pretendard', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 130%;
-  color: #444444;
+  font-size: 14px;
+  line-height: 140%;
+  color: #8C8681;
 }
 
 /* =============================================
@@ -73,37 +74,37 @@ body.modal-open {
 ============================================= */
 .modal-btns {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   margin-top: 8px;
 }
 
 .btn-modal-cancel,
 .btn-modal-confirm {
   flex: 1;
-  padding: 14px;
+  padding: 13px;
   border: none;
   border-radius: 10px;
   font-family: 'Pretendard', sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, background-color 0.15s;
 }
 
 .btn-modal-cancel {
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: #FFF8F6;
+  color: #8C8681;
 }
 
 .btn-modal-cancel:hover {
-  opacity: 0.85;
+  background-color: #F0E0DC;
 }
 
 .btn-modal-confirm {
-  background-color: #ACA0EB;
+  background-color: #FF6F61;
   color: #ffffff;
 }
 
 .btn-modal-confirm:hover {
-  background-color: #7F6AEE;
+  background-color: #E85A4F;
 }

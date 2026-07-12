@@ -98,6 +98,21 @@ function formatDateTime(dateInput) {
   return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
 }
 
+// 아이콘 SVG 문자열 (좋아요/댓글/조회수)
+const ICONS = {
+  like: `<svg class="stat-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 20.5s-7.5-4.6-10-9.3C.5 8 2 4.5 5.5 4c2-.3 3.8.7 4.9 2.2l1.6 2.1 1.6-2.1C14.7 4.7 16.5 3.7 18.5 4 22 4.5 23.5 8 22 11.2c-2.5 4.7-10 9.3-10 9.3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  comment: `<svg class="stat-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v12H8.5L4 20V4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  view: `<svg class="stat-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>`
+};
+
+// 아이콘 + 숫자로 구성된 stat-item 하나 생성
+function createStatItem(iconKey, count) {
+  const item = document.createElement('span');
+  item.className = 'stat-item';
+  item.innerHTML = `${ICONS[iconKey]}<span>${formatCount(count)}</span>`;
+  return item;
+}
+
 function renderPostList(posts) {
 
   posts.forEach((post) => {
@@ -115,22 +130,22 @@ function renderPostList(posts) {
 
     postTop.appendChild(postTitle);
 
+    // 날짜만 담는 meta 영역
     const postMeta = document.createElement('div');
     postMeta.className = 'post-meta';
-
-    const metaStats = document.createElement('span');
-    metaStats.className = 'meta-stats';
-    metaStats.textContent = `좋아요 ${formatCount(post.like_count)}   댓글 ${formatCount(post.comment_count)}   조회수 ${formatCount(post.view_count)}`;
 
     const metaDate = document.createElement('span');
     metaDate.className = 'meta-date';
     metaDate.textContent = formatDateTime(post.datewritten);
 
-    postMeta.appendChild(metaStats);
     postMeta.appendChild(metaDate);
 
-    const postDivider = document.createElement('div');
-    postDivider.className = 'post-divider';
+    // 좋아요/댓글/조회수 (아이콘 + 숫자)
+    const metaStats = document.createElement('div');
+    metaStats.className = 'meta-stats';
+    metaStats.appendChild(createStatItem('like', post.like_count));
+    metaStats.appendChild(createStatItem('comment', post.comment_count));
+    metaStats.appendChild(createStatItem('view', post.view_count));
 
     const postAuthor = document.createElement('div');
     postAuthor.className = 'post-author';
@@ -145,13 +160,18 @@ function renderPostList(posts) {
     postAuthor.appendChild(authorAvatar);
     postAuthor.appendChild(authorName);
 
+    // 하단 영역: stats ↔ author, 양끝 정렬
+    const postFooter = document.createElement('div');
+    postFooter.className = 'post-footer';
+    postFooter.appendChild(metaStats);
+    postFooter.appendChild(postAuthor);
+
     const postLink = document.createElement('a');
     postLink.href = `../Post_detail/post_detail.html?postId=${post.post_id}`;
 
     postLink.appendChild(postTop);
     postLink.appendChild(postMeta);
-    postLink.appendChild(postDivider);
-    postLink.appendChild(postAuthor);
+    postLink.appendChild(postFooter);
 
     li.appendChild(postLink);
 

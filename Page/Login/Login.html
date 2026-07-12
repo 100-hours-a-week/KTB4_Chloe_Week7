@@ -21,47 +21,50 @@
   <!-- ───────────── MAIN ───────────── -->
   <main class="main-content">
     <section class="login-section">
-      <h2 class="login-title">로그인</h2>
+      <div class="login-card">
+        <h2 class="login-title">로그인</h2>
+        <p class="login-subtitle">다시 만나서 반가워요</p>
 
-      <!-- 폼 영역 (빨간 박스 1) -->
-      <div class="form-card">
-        <div class="form-group">
-          <label class="form-label" for="email">이메일</label>
-          <input
-            class="form-input"
-            type="email"
-            id="email"
-            placeholder="이메일을 입력하세요"
-            autocomplete="email"
-          />
-          <span class="helper-text" id="helperTextEmail">* helper text</span>
+        <!-- 폼 영역 -->
+        <div class="form-card">
+          <div class="form-group">
+            <label class="form-label" for="email">이메일</label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              placeholder="이메일을 입력하세요"
+              autocomplete="email"
+            />
+            <span class="helper-text" id="helperTextEmail">* helper text</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">비밀번호</label>
+            <input
+              class="form-input"
+              type="password"
+              id="password"
+              placeholder="비밀번호를 입력하세요"
+              autocomplete="current-password"
+            />
+            <span class="helper-text" id="helperTextPassword">* helper text</span>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="password">비밀번호</label>
-          <input
-            class="form-input"
-            type="password"
-            id="password"
-            placeholder="비밀번호를 입력하세요"
-            autocomplete="current-password"
-          />
-          <span class="helper-text" id="helperTextPassword">* helper text</span>
+        <!-- 로그인 버튼 -->
+        <button class="btn-login" id="loginBtn" disabled>로그인</button>
+
+        <!-- 회원가입 링크-->
+        <div class="signup-wrap">
+          <span class="signup-text">계정이 없으신가요?</span>
+          <a href="../Signup/signup.html" class="btn-signup">회원가입</a>
         </div>
-      </div>
-
-      <!-- 로그인 버튼 (빨간 박스 2) -->
-      <button class="btn-login" id="loginBtn" disabled>로그인</button>
-
-      <!-- 회원가입 링크 (빨간 박스 3) -->
-      <div class="signup-wrap">
-        <a href="../Signup/signup.html" class="btn-signup">회원가입</a>
       </div>
     </section>
   </main>
 
   <script type="module" src="login.js"></script>
 
-  
 </body>
 </html>

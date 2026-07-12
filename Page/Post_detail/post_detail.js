@@ -171,7 +171,7 @@ function createCommentElement(comment) {
   commentAuthorWrap.className = 'comment-author-wrap';
 
   const commentAvatar = document.createElement('div');
-  commentAvatar.className = 'author-avatar';
+  commentAvatar.className = 'author-avatar comment-avatar';
 
   const commentAuthor = document.createElement('span');
   commentAuthor.className = 'comment-author';
@@ -192,7 +192,6 @@ function createCommentElement(comment) {
   editBtn.className = 'btn-action btn-edit-comment';
   editBtn.textContent = '수정';
   editBtn.dataset.commentId = comment.commentId;
-
 
   const deleteBtn = document.createElement('button');
   deleteBtn.className = 'btn-action btn-delete-comment';
